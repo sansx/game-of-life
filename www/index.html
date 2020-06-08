@@ -5,6 +5,10 @@
   <meta charset="utf-8">
   <title>Hello wasm-pack!</title>
   <style>
+    body,html{
+      padding: 0;
+      margin: 0;
+    }
     body {
       position: absolute;
       top: 0;
@@ -24,6 +28,7 @@
   <button id="play-pause">press to start</button>
   <canvas id="game-of-life-canvas"></canvas>
   <script src="./bootstrap.js"></script>
+  <input type="range" id="rangeipt"  value="10"  max="10" min="1">
 </body>
 
 </html>

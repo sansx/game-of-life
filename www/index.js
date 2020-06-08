@@ -21,6 +21,11 @@ const GRID_COLOR = "#CCCCCC";
 const DEAD_COLOR = "#FFFFFF";
 const ALIVE_COLOR = "#000000";
 
+
+const rangeIpt = document.getElementById('rangeipt')
+console.log(rangeIpt.value);
+
+
 // Construct the universe, and get its width and height.
 const universe = Universe.new();
 const width = universe.width();
@@ -52,7 +57,7 @@ const drawGrid = () => {
 
     ctx.stroke();
 };
-
+drawGrid()
 const getIndex = (row, column) => {
     return row * width + column;
 };
@@ -92,8 +97,13 @@ const renderLoop = () => {
 
     drawGrid();
     drawCells();
-
-    animationId = requestAnimationFrame(renderLoop);
+    if (rangeIpt.value == 1) {
+        clearInterval(animationId)
+        animationId = requestAnimationFrame(renderLoop)
+    } else if (!animationId) {
+        cancelAnimationFrame(animationId)
+        animationId = setInterval(renderLoop, rangeIpt.value * 100);
+    }
 };
 
 const isPaused = () => {
@@ -102,13 +112,25 @@ const isPaused = () => {
 
 const playPauseButton = document.getElementById("play-pause");
 
+
+rangeIpt.addEventListener('change', ({ target: { value } }) => {
+    console.log(
+        value
+    );
+    clearInterval(animationId)
+    cancelAnimationFrame(animationId);
+    animationId = null
+    renderLoop();
+})
+
 const play = () => {
-    playPauseButton.textContent = "⏸";
+    playPauseButton.textContent = "||";
     renderLoop();
 };
 
 const pause = () => {
-    playPauseButton.textContent = "▶";
+    playPauseButton.textContent = ">";
+    clearInterval(animationId)
     cancelAnimationFrame(animationId);
     animationId = null;
 };
