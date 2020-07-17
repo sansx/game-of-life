@@ -114,6 +114,12 @@ impl Universe {
         }
         count
     }
+
+    pub fn destory(&mut self) {
+      // 123
+      self.cells = self.cells.iter().cloned().map(|_i| Cell::Dead).collect();
+    }
+
     pub fn tick(&mut self) {
         let mut next = self.cells.clone();
         for row in 0..self.height {
