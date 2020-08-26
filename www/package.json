@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/rustwasm/create-wasm-app#readme",
   "dependencies": {
+    "nes.css": "^2.3.0",
     "test1": "file:../pkg"
   },
   "devDependencies": {
