@@ -1,6 +1,6 @@
-import { Universe, Cell } from "test1";
+import { Universe, Cell } from "wasm-game-of-life";
 // Import the WebAssembly memory at the top of the file.
-import { memory } from "test1/test1_bg";
+import { memory } from "wasm-game-of-life/wasm_game_of_life_bg";
 
 // Version 1: use text render game
 // const pre = document.getElementById("game-of-life-canvas");

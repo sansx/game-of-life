@@ -3,9 +3,9 @@
 #![cfg(target_arch = "wasm32")]
 
 extern crate wasm_bindgen_test;
-extern crate test1;
+extern crate wasm_game_of_life;
 use wasm_bindgen_test::*;
-use test1::Universe;
+use wasm_game_of_life::Universe;
 
 // wasm_bindgen_test_configure!(run_in_browser);
 

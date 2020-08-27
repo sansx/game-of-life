@@ -28,7 +28,7 @@
   "homepage": "https://github.com/rustwasm/create-wasm-app#readme",
   "dependencies": {
     "nes.css": "^2.3.0",
-    "test1": "file:../pkg"
+    "wasm-game-of-life": "file:../pkg"
   },
   "devDependencies": {
     "hello-wasm-pack": "^0.1.0",
