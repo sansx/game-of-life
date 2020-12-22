@@ -1,6 +1,7 @@
 import { Universe, Cell } from "wasm-game-of-life";
 // Import the WebAssembly memory at the top of the file.
 import { memory } from "wasm-game-of-life/wasm_game_of_life_bg";
+import "./static/css/nes.min.css";
 
 // Version 1: use text render game
 // const pre = document.getElementById("game-of-life-canvas");
