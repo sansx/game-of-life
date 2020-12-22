@@ -4,33 +4,7 @@
     <meta charset="utf-8" />
     <title>Hello wasm-pack!</title>
     <!-- <link rel="stylesheet" href="./static/css/nes.min.css" /> -->
-    <style>
-      @font-face {
-        font-family: "Press Start 2P";
-        src: url("./font/PressStart2P-Regular.ttf");
-      }
-      body,
-      html {
-        padding: 0;
-        margin: 0;
-        font-family: "Press Start 2P";
-      }
-      body {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-      }
-      #fps {
-        white-space: pre;
-        font-family: monospace;
-      }
-    </style>
+    <link rel="stylesheet" href="./index.css" />
   </head>
 
   <body>
@@ -43,12 +17,14 @@
       <p class="title">Frames per Second:</p>
       <p id="fps"></p>
     </div>
-    <button id="play-pause" class="nes-btn is-primary">press to start</button>
-    <button id="next-step" class="nes-btn">next</button>
-    <button id="reset" class="nes-btn is-success">reset</button>
-    <button id="boom" type="button" class="nes-btn is-error">destory</button>
+    <div class="action">
+      <button id="play-pause" class="nes-btn is-primary">press to start</button>
+      <button id="next-step" class="nes-btn">next</button>
+      <button id="reset" class="nes-btn is-success">reset</button>
+      <button id="boom" type="button" class="nes-btn is-error">destory</button>
+    </div>
     <canvas id="game-of-life-canvas"></canvas>
-    <script src="./bootstrap.js"></script>
+    <!-- <script src="./bootstrap.js"></script> -->
     <input type="range" id="rangeipt" value="10" max="10" min="1" />
   </body>
 </html>
