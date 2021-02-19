@@ -4,6 +4,8 @@ use wasm_bindgen::prelude::*;
 extern crate js_sys;
 extern crate web_sys;
 
+
+
 // A macro to provide `println!(..)`-style syntax for `console.log` logging.
 macro_rules! log {
   ( $( $t:tt )* ) => {
@@ -18,15 +20,20 @@ pub struct Timer<'a> {
 }
 
 impl<'a> Timer<'a> {
+  
   pub fn new(name: &'a str) -> Timer<'a> {
-    console::time_with_label(name);
+    #[allow(unused_unsafe)]
+    unsafe {
+      console::time_with_label(name);
+    }
     Timer { name }
   }
 }
 
 impl<'a> Drop for Timer<'a> {
   fn drop(&mut self) {
-    console::time_end_with_label(self.name);
+    #[allow(unused_unsafe)]
+    unsafe {console::time_end_with_label(self.name);}
   }
 }
 
@@ -54,6 +61,8 @@ impl Cell {
   }
 }
 
+
+#[allow(unused_unsafe)]
 #[wasm_bindgen]
 impl Universe {
   pub fn new() -> Universe {
@@ -63,11 +72,14 @@ impl Universe {
 
     let cells = (0..width * height)
       .map(|_i| {
-        if js_sys::Math::random() < 0.5 {
-          Cell::Alive
-        } else {
-          Cell::Dead
+        unsafe {
+          if js_sys::Math::random() < 0.5 {
+            Cell::Alive
+          } else {
+            Cell::Dead
+          }
         }
+        
         // if i % 2 == 0 || i % 7 == 0 {
         //     Cell::Alive
         // } else {
@@ -114,6 +126,38 @@ impl Universe {
     self.cells[idx].toggle();
   }
 
+  pub fn clear_area(&mut self, row: u32, column: u32, range: u32 ) {
+    let min_num : u32 = (range as f32 / 2.0 ).ceil() as u32;
+    let max_num = self.width - min_num;
+
+    let offset_num = move |target | {
+      if target < min_num {
+        return min_num
+      }
+      if target > max_num {
+        return max_num
+      }
+      target
+    };
+
+    let offset_row = offset_num(row) - min_num;
+    let offset_column  = offset_num(column)- min_num;
+
+    (0..range).for_each(|a| (offset_column..).take(range as usize).for_each(|b| {
+      let idx = self.get_index(a+offset_row,b);
+      self.cells[idx].toggle();
+      println!("{:?} {} ",a+offset_row,b );
+      unsafe{console::log_1(&"111".to_owned().into())}
+    } ) )
+
+    // for x in (0..range).map(|a| (offset_column..).take(range as usize).map(|b| (a+offset_row,b ) ).collect::<Vec<(u32,u32)>>() ).flatten() {
+    //   println!("{:?} ", x);
+    // }
+
+    // center.0 - self.height
+  }          
+
+  #[inline]
   fn get_index(&self, row: u32, column: u32) -> usize {
     (row * self.width + column) as usize
   }
@@ -172,10 +216,12 @@ impl Universe {
     self.destory();
     self.cells = (0..self.width * self.height)
       .map(|_i| {
-        if js_sys::Math::random() < 0.5 {
-          Cell::Alive
-        } else {
-          Cell::Dead
+        unsafe {
+          if js_sys::Math::random() < 0.5 {
+            Cell::Alive
+          } else {
+            Cell::Dead
+          }
         }
       })
       .collect()

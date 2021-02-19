@@ -214,7 +214,9 @@ canvas.addEventListener("click", event => {
   const row = Math.min(Math.floor(canvasTop / (CELL_SIZE + 1)), height - 1);
   const col = Math.min(Math.floor(canvasLeft / (CELL_SIZE + 1)), width - 1);
 
-  universe.toggle_cell(row, col);
+  universe.clear_area(row, col, 3);
+
+  // universe.toggle_cell(row, col);
   drawGrid();
   drawCells();
 });
@@ -228,6 +230,7 @@ document.onkeydown = e => {
       break
     case 17:
       generType = 'glider'
+      console.log('111')
       break;
     default:
       generType = null
