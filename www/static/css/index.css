@@ -27,3 +27,8 @@ body {
   /* font-family: monospace; */
   min-height: 100px;
 }
+
+.action{
+  padding: 16px 0;
+}
+

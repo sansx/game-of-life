@@ -202,7 +202,18 @@ resetButton.addEventListener('click', () => {
   drawCells();
 })
 
+canvas.oncontextmenu = (e) => {
+  !!generType&&e.preventDefault()
+  console.log('fff');
+}
+
 canvas.addEventListener("click", event => {
+  if (generType === 'glider') {
+    
+    
+    console.log('wwww');
+  }
+
   const boundingRect = canvas.getBoundingClientRect();
 
   const scaleX = canvas.width / boundingRect.width;
@@ -214,8 +225,8 @@ canvas.addEventListener("click", event => {
   const row = Math.min(Math.floor(canvasTop / (CELL_SIZE + 1)), height - 1);
   const col = Math.min(Math.floor(canvasLeft / (CELL_SIZE + 1)), width - 1);
 
-  universe.clear_area(row, col, 3);
-
+  universe.gene_cell(row, col, 'glider');
+  
   // universe.toggle_cell(row, col);
   drawGrid();
   drawCells();
