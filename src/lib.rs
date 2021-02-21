@@ -171,6 +171,7 @@ impl Universe {
     fn type_match(gene_type: &str) -> u32 {
         match gene_type {
             "glider" => 5,
+            "pulsar" => 15,
             _ => 0,
         }
     }
@@ -194,8 +195,8 @@ impl Universe {
         println!("res:{:?}", res);
         vec![0, 5, 7, 12].iter().for_each(|init_x| {
             res.iter().for_each(|init_y| {
-                target.push((*init_x + x, *init_y + y));
-                target.push((*init_y + x, *init_x + y));
+                target.push((*init_x + x , *init_y + y ));
+                target.push((*init_y + x , *init_x + y ));
             })
         });
         target
