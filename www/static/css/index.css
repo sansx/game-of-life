@@ -32,3 +32,7 @@ body {
   padding: 16px 0;
 }
 
+#play-pause{
+  min-width: 4em;
+}
+

@@ -187,13 +187,11 @@ destoryButton.addEventListener('click', () => {
 })
 
 rangeIpt.addEventListener('change', ({ target: { value } }) => {
-  console.log(
-    value
-  );
   clearInterval(animationId)
   cancelAnimationFrame(animationId);
   animationId = null
-  renderLoop();
+  // renderLoop();
+  play();
 })
 
 resetButton.addEventListener('click', () => {
@@ -204,16 +202,25 @@ resetButton.addEventListener('click', () => {
 
 canvas.oncontextmenu = (e) => {
   !!generType&&e.preventDefault()
-  console.log('fff');
+  const { row, col } = get_position(event);
+  universe.gene_cell(row, col, generType)
+  drawGrid();
+  drawCells();
 }
 
 canvas.addEventListener("click", event => {
-  if (generType === 'glider') {
-    
-    
-    console.log('wwww');
+  const { row, col } = get_position(event);
+  if (generType) {
+    universe.gene_cell(row, col, generType)
+  }else{
+    universe.toggle_cell(row, col);
   }
+  
+  drawGrid();
+  drawCells();
+});
 
+function get_position(event)  {
   const boundingRect = canvas.getBoundingClientRect();
 
   const scaleX = canvas.width / boundingRect.width;
@@ -224,13 +231,8 @@ canvas.addEventListener("click", event => {
 
   const row = Math.min(Math.floor(canvasTop / (CELL_SIZE + 1)), height - 1);
   const col = Math.min(Math.floor(canvasLeft / (CELL_SIZE + 1)), width - 1);
-
-  universe.gene_cell(row, col, 'pulsar');
-  
-  // universe.toggle_cell(row, col);
-  drawGrid();
-  drawCells();
-});
+  return { row, col }
+}
 
 document.onkeydown = e => {
   // keyCode 16 : Shift
@@ -241,7 +243,6 @@ document.onkeydown = e => {
       break
     case 17:
       generType = 'glider'
-      console.log('111')
       break;
     default:
       generType = null

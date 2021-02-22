@@ -155,24 +155,24 @@ impl Universe {
 
     pub fn gene_cell(&mut self, row: u32, column: u32, target: &str) {
         let (x, y) = self.clear_area(row, column, Self::type_match(target));
-        // Self::glider_pos(x + 1, y + 1).iter().for_each(|(a, b)| {
-        //     let idx = self.get_index(*a, *b);
-        //     self.cells[idx] = Cell::Alive;
-        // });
-        Self::pulsar_pos(x + 1, y + 1).iter().for_each(|(a, b)| {
+
+        let res_position = match target {
+            "glider" => Self::glider_pos(x + 1, y + 1),
+            "pulsar" => Self::pulsar_pos(x + 1, y + 1),
+            _ => Self::glider_pos(x + 1, y + 1),
+        };
+
+        res_position.iter().for_each(|(a, b)| {
             let idx = self.get_index(*a, *b);
             self.cells[idx] = Cell::Alive;
         });
-        // unsafe {
-        //   log!( "a:{}, b:{}", x,y );
-        // }
     }
 
     fn type_match(gene_type: &str) -> u32 {
         match gene_type {
             "glider" => 5,
             "pulsar" => 15,
-            _ => 0,
+            _ => 5,
         }
     }
 
@@ -195,8 +195,8 @@ impl Universe {
         println!("res:{:?}", res);
         vec![0, 5, 7, 12].iter().for_each(|init_x| {
             res.iter().for_each(|init_y| {
-                target.push((*init_x + x , *init_y + y ));
-                target.push((*init_y + x , *init_x + y ));
+                target.push((*init_x + x, *init_y + y));
+                target.push((*init_y + x, *init_x + y));
             })
         });
         target
