@@ -5,6 +5,55 @@
     <title>Hello wasm-pack!</title>
     <!-- <link rel="stylesheet" href="./static/css/nes.min.css" /> -->
     <!-- <link href="./index.css" /> -->
+    <style>
+      .nes-container .disable {
+        pointer-events: none;
+      }
+      /* entire container, keeps perspective */
+      .flip-container {
+        perspective: 1000;
+      }
+      /* flip the pane when hovered */
+      .flip-container:hover .flipper,
+      .flip-container.hover .flipper {
+        transform: rotateY(180deg);
+      }
+
+      .flip-container,
+      .front,
+      .back {
+        min-width: 680px;
+        height: 360px;
+      }
+
+      /* flip speed goes here */
+      .flipper {
+        transition: 0.6s;
+        transform-style: preserve-3d;
+
+        position: relative;
+      }
+
+      /* hide back of pane during swap */
+      .front,
+      .back {
+        backface-visibility: hidden;
+
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+
+      /* front pane, placed above back */
+      .front {
+        z-index: 2;
+      }
+
+      /* back, initially hidden pane */
+      .back {
+        transform: rotateY(180deg);
+      }
+    </style>
   </head>
 
   <body>
@@ -13,9 +62,45 @@
       javascript in your browser.</noscript
     >
     <!-- <div id="fps"></div> -->
-    <div class="nes-container with-title is-centered">
-      <p class="title">Frames per Second:</p>
-      <p id="fps"></p>
+
+    <div class="flip-container" ontouchstart="this.classList.toggle('hover');">
+      <div class="flipper">
+        <div class="front">
+          <div>
+            <div
+              class="nes-container with-title is-centered"
+              style="
+                position: absolute;
+                bottom: 0;
+                left: 50%;
+                transform: translateX(-50%);
+              "
+            >
+              <p class="title">Frames per Second:</p>
+              <p id="fps"></p>
+            </div>
+          </div>
+        </div>
+        <div class="back">
+          <div class="nes-container is-dark with-title">
+            <p class="title">Generate mode</p>
+            <p>
+              <button class="nes-btn disable">Ctrl</button> +
+              <button class="nes-btn disable">Shift</button> +
+              <button class="nes-btn disable">Click</button> =
+              <img src="./images/pulsar.gif" />
+            </p>
+            <p>
+              <button class="nes-btn disable">Ctrl</button> +
+              <button class="nes-btn disable">Click</button> =
+              <img src="./images/glider.gif" />
+            </p>
+            <div style="display: flex; justify-content: flex-end">
+              <i class="nes-jp-logo"></i>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="action">
       <button id="play-pause" class="nes-btn is-primary">press to start</button>
@@ -24,6 +109,7 @@
       <button id="boom" type="button" class="nes-btn is-error">destory</button>
     </div>
     <canvas id="game-of-life-canvas"></canvas>
+
     <!-- <script src="./bootstrap.js"></script> -->
     <input type="range" id="rangeipt" value="10" max="10" min="1" />
   </body>

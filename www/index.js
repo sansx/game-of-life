@@ -4,18 +4,6 @@ import { memory } from "wasm-game-of-life/wasm_game_of_life_bg";
 import "./static/css/nes.min.css";
 import "./static/css/index.css"
 
-// Version 1: use text render game
-// const pre = document.getElementById("game-of-life-canvas");
-// const universe = Universe.new();
-
-// const renderLoop = () => {
-//     pre.textContent = universe.render();
-//     universe.tick();
-
-//     requestAnimationFrame(renderLoop);
-// };
-// requestAnimationFrame(renderLoop);
-
 const CELL_SIZE = 5; // px
 const GRID_COLOR = "#CCCCCC";
 // const DEAD_COLOR = "#FFFFFF";
@@ -67,23 +55,6 @@ const drawCells = () => {
   const cells = new Uint8Array(memory.buffer, cellsPtr, width * height);
 
   ctx.beginPath();
-
-  // for (let row = 0; row < height; row++) {
-  //   for (let col = 0; col < width; col++) {
-  //     const idx = getIndex(row, col);
-
-  //     ctx.fillStyle = cells[idx] === Cell.Dead
-  //       ? DEAD_COLOR
-  //       : ALIVE_COLOR;
-
-  //     ctx.fillRect(
-  //       col * (CELL_SIZE + 1) + 1,
-  //       row * (CELL_SIZE + 1) + 1,
-  //       CELL_SIZE,
-  //       CELL_SIZE
-  //     );
-  //   }
-  // }
 
   // Alive cells.
   ctx.fillStyle = ALIVE_COLOR;

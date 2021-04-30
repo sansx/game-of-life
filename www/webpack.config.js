@@ -10,6 +10,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "bootstrap.js",
+    // publicPath: "/static/"
   },
   module: {
     rules: [
@@ -20,11 +21,31 @@ module.exports = {
         include: path.resolve(__dirname, 'static')
       },
       {
+        test: /\.(htm|html)$/i,
+        use: {
+          loader: 'html-loader',
+          options: {
+            attributes: true
+          }
+        },
+      },
+      {
+        test: /\.(jpg|gif|png)$/,
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              name: "images/[name].[ext]"
+            }
+          }
+        ]
+      },
+      {
         test: /\.(woff|woff2|svg|ttf|eot)$/,
         use: [
           { loader: 'file-loader', options: { name: 'fonts/[name].[hash:8].[ext]' } }
         ]
-      }
+      },
     ]
   },
   devServer: {
