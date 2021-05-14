@@ -208,11 +208,11 @@ function get_position(event)  {
 document.onkeydown = e => {
   // keyCode 16 : Shift
   // keyCode 17 : Control
-  switch (e.keyCode) {
-    case 16:
+  switch (e.key) {
+    case "Shift":
       generType = 'pulsar'
       break
-    case 17:
+    case "Control":
       generType = 'glider'
       break;
     default:

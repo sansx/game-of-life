@@ -53,6 +53,12 @@
       .back {
         transform: rotateY(180deg);
       }
+      .back.nes-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
     </style>
   </head>
 
@@ -82,10 +88,9 @@
           </div>
         </div>
         <div class="back">
-          <div class="nes-container is-dark with-title">
+          <div class="nes-container is-dark with-title is-centered">
             <p class="title">Generate mode</p>
             <p>
-              <button class="nes-btn disable">Ctrl</button> +
               <button class="nes-btn disable">Shift</button> +
               <button class="nes-btn disable">Click</button> =
               <img src="./images/pulsar.gif" />
