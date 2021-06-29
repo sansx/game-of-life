@@ -8,7 +8,7 @@
 </div>
 
 
-## About
+### About
 
 This repository is made base on [Tutorial: Conway's Game of Life](https://rustwasm.github.io/book/game-of-life/introduction.html), the tutorial builds increasingly featureful implementations of [Conway's Game of Life][game-of-life].
 
